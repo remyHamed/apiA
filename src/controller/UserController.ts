@@ -14,5 +14,32 @@ userRoute.route('/')
         } catch(err) {
             ExceptionHandling(err,res);
         }
+    })
+    .get(async (req,res) => {
+        try {
+            return res.status(HttpStatus.Ok).send(await UserService.getInstance().getUsers());
+        } catch(err) {
+            ExceptionHandling(err,res);
+        }
     });
+
+userRoute.route('/:userId')
+    .get(async (req,res) => {
+        try{
+            const user = await UserService.getInstance().getById(req.params.userId);
+            return res.status(HttpStatus.Ok).send(user);
+        } catch(err) {
+            ExceptionHandling(err,res);
+        }
+    })
+    .delete(async(req,res) => {
+        try{
+            await UserService.getInstance().delete(req.params.userId);
+            return res.status(HttpStatus.NoContent).end();
+        } catch(err) {
+            ExceptionHandling(err,res);
+        }
+    })
+
+
 export default userRoute;

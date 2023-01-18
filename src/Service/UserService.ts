@@ -26,7 +26,11 @@ export class UserService {
     }
 
     async getById(userId: string): Promise<UserDocument> {
-        const document = await UserModel.findById(userId);
+
+        const ObjectId = require('mongoose').Types.ObjectId;
+        const id = new ObjectId(userId);
+        const document = await UserModel.findById(id);
+
         if (!document) {
             throw new NotFoundException("User not found");
         }
