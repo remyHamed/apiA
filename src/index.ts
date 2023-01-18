@@ -1,4 +1,9 @@
 import express from "express";
+import userRoute from "./controller/UserController";
+import mongoose from "mongoose";
+import {config} from "dotenv";
+config();
+
 
 async function bootstrap(): Promise<void> {
     const app = express();
@@ -10,7 +15,14 @@ async function bootstrap(): Promise<void> {
         next();
     });
 
+    await mongoose.connect(process.env.MONGO_URI as string, {
+        auth: {
+            username: process.env.MONGO_USER,
+            password: process.env.MONGO_PASSWORD
+        }
+    });
 
+    app.use('/user', userRoute)
     app.get('/', (req, res) => {
         res.send('Hello wolrd!')
     })
