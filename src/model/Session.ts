@@ -18,10 +18,9 @@ const SessionSchema = new Schema({
 });
 
 export interface SessionProps {
-    _id: string,
     user: string | UserProps,
     expiration?: Date,
 }
 
 export type SessionDocument = SessionProps & Document;
-export const AuthModel: Model<SessionDocument> = mongoose.model<SessionDocument>("Auth", SessionSchema);
+export const SessionModel: Model<SessionDocument> = mongoose.model<SessionDocument>("Auth", SessionSchema);
