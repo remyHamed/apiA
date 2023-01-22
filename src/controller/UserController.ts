@@ -60,6 +60,14 @@ userRoute.route('/:userId')
             ExceptionHandling(err,res);
         }
     })
+    .patch(express.json(), async (req, res) => {
+        try {
+            const u = await  UserService.getInstance().updateUserPassword(req.params.userId, req.body.password);
+            return res.status(HttpStatus.Ok).send(u);
+        } catch (err) {
+            ExceptionHandling(err, res);
+        }
+    });
 
 
 export default userRoute;

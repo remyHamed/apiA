@@ -30,12 +30,12 @@ export class UserService {
 
         const ObjectId = require('mongoose').Types.ObjectId;
         const id = new ObjectId(userId);
-        const document = await UserModel.findById(id);
+        const userDocument = await UserModel.findById(id);
 
-        if (!document) {
+        if (!userDocument) {
             throw new NotFoundException("User not found");
         }
-        return document;
+        return userDocument;
     }
 
     public async delete(userId: string): Promise<void> {
@@ -54,6 +54,15 @@ export class UserService {
         }
 
         return user;
+    }
+
+    async updateUserPassword(uid:string,password : string) {
+        const User = await this.getById(uid);
+        if (!User) {
+            throw new NotFoundException("user not found");
+        }
+        User.password = password;
+        return await User.save();
     }
 
 }
