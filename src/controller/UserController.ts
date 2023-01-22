@@ -23,7 +23,27 @@ userRoute.route('/')
         }
     });
 
+userRoute.route('/login')
+    .post(express.json(),async (req,res) => {
+        const body = req.body;
+        try {
+            const user = await UserService.getInstance().logIn({...body});
+            return res.status(HttpStatus.Created).send(user);
+        } catch(err) {
+            ExceptionHandling(err,res);
+        }
+    })
+
 userRoute.route('/:userId')
+    .post(express.json(),async (req,res) => {
+        const body = req.body;
+        try {
+            const user = await UserService.getInstance().logIn({...body});
+            return res.status(HttpStatus.Created).send(user);
+        } catch(err) {
+            ExceptionHandling(err,res);
+        }
+    })
     .get(async (req,res) => {
         try{
             const user = await UserService.getInstance().getById(req.params.userId);

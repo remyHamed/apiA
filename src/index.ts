@@ -2,7 +2,6 @@ import express from "express";
 import userRoute from "./controller/UserController";
 import mongoose from "mongoose";
 import {config} from "dotenv";
-import SessionRoute from "./controller/SessionControler";
 config();
 
 
@@ -23,7 +22,6 @@ async function bootstrap(): Promise<void> {
         }
     });
 
-    app.use('/login', SessionRoute);
     app.use('/user', userRoute)
     app.get('/', (req, res) => {
         res.send('Hello wolrd!')

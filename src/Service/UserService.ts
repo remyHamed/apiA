@@ -2,6 +2,7 @@
 import {UserDocument, UserModel, UserProps} from "../model/User";
 import {NotFoundException} from "../lib/Exeption";
 
+
 export class UserService {
     private static instance?: UserService;
 
@@ -42,6 +43,17 @@ export class UserService {
         if (!document) {
             throw new NotFoundException("User not found");
         }
+    }
+
+    public async logIn(info: { mail: string, password: string }): Promise<UserDocument> {
+
+        const user = await UserModel.findOne({mail:info.mail, password:info.password});
+
+        if (!user) {
+            throw new NotFoundException("No user with this email or password has been found");
+        }
+
+        return user;
     }
 
 }
