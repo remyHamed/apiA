@@ -32,7 +32,7 @@ userRoute.route('/login')
         } catch(err) {
             ExceptionHandling(err,res);
         }
-    })
+    });
 
 userRoute.route('/:userId')
     .post(express.json(),async (req,res) => {

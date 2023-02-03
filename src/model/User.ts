@@ -1,6 +1,10 @@
 import mongoose, {Schema, Document, Model} from "mongoose";
 
 const userSchema = new Schema({
+    userName: {
+        type: Schema.Types.String,
+        required: true
+    },
     mail: {
         type: Schema.Types.String,
         required: true
@@ -11,11 +15,12 @@ const userSchema = new Schema({
     }
 }, {
     collection: "users",
-    timestamps: true,
+    timestamps: false,
     versionKey: false
 });
 
 export interface UserProps {
+    userName :string,
     mail: string,
     password: string
 }

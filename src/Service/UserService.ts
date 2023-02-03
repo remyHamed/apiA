@@ -17,6 +17,7 @@ export class UserService {
 
         return await new UserModel({
             ...user,
+            userName: user.userName,
             mail: user.mail.toLowerCase(),
             password: user.password
         }).save();
@@ -27,7 +28,7 @@ export class UserService {
     }
 
     async getById(userId: string): Promise<UserDocument> {
-
+        console.log('poulet');
         const ObjectId = require('mongoose').Types.ObjectId;
         const id = new ObjectId(userId);
         const userDocument = await UserModel.findById(id);
@@ -47,6 +48,7 @@ export class UserService {
 
     public async logIn(info: { mail: string, password: string }): Promise<UserDocument> {
 
+        console.log(info.mail, info.password);
         const user = await UserModel.findOne({mail:info.mail, password:info.password});
 
         if (!user) {
